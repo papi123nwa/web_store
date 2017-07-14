@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
+    <input type="hidden" name="pid" value="{{ payment_info.pid }}" />
+    <input type="hidden" name="sid" value="{{ payment_info.sid }}" />
+    <input type="hidden" name="amount" value="{{ payment_info.amount }}" />
+    <input type="hidden" name="success_url" value="{{ payment_info.url }}" />
+    <input type="hidden" name="cancel_url" value="{{ payment_info.url }}" />
+    <input type="hidden" name="error_url" value="{{ payment_info.url }}" />
+    <input type="hidden" name="checksum" value="{{ payment_info.checksum }}" />
+    <p>You are about to purchase the game <strong>{{ game.title }}</strong> for <strong>{{ payment_info.amount }} €</strong>.
+    <input type="submit" value="Accept Payment"/>
+</form>
+{% endblock %}

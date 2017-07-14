@@ -1,0 +1,24 @@
+{% load navbar_util %}
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            {% navbar_entry 'browse_games' 'Games' %}
+            {% if user.is_authenticated %}
+                {% navbar_entry 'my_games' 'My games' %}
+                {% navbar_entry 'add_game' 'Add games' %}
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                {% if user.uploaded_games.exists %}
+                    {% navbar_entry 'developer_profile' 'Developer Profile' %}
+                {% endif %}
+                {% navbar_entry 'profile' 'Profile' %}
+                {% navbar_entry 'account_logout' 'Logout' %}
+            {% else %}
+                {% navbar_entry 'account_login' 'Login' '?next='|add:request.path %}
+                {% navbar_entry 'account_signup' 'Sign up' %}
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,46 @@
+body {
+    background-color: aliceblue;
+    padding-top: 70px; /* Required so navbar doesnt overlap content */
+}
+
+#content {
+  width: 80%;
+  margin: auto;
+}
+
+#gameFrame {
+    margin: 10px;
+    border-style: solid;
+    border-width: thick;
+    border-color: #C3C3C3;
+}
+
+.tags {
+  list-style: none;
+  margin: 0;
+  overflow: hidden; 
+  padding: 0;
+}
+
+.tags li {
+  float: left; 
+}
+
+.tag {
+  background: #eee;
+  color: #555;
+  display: inline-block;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 10px 0 10px;
+  position: relative;
+  margin: 0 5px 5px 0;
+  text-decoration: none;
+  font-size:12px;
+}
+
+.tag:hover {
+  background: #ddd;
+  color: #555;
+  text-decoration: none;
+}

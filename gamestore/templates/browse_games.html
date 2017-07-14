@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+  <select multiple>
+  <option disabled selected value="" style="display:none;"></option>
+  {% for tag in tags %}
+    <option
+    {% if tag in selected_tags %} 
+    selected 
+    {% endif %} value="{{tag}}">{{tag}}</option>
+  {% endfor %}
+  </select>
+  <button id="listGamesButton" type="button" class="btn btn-default">Browse</button>
+  </div>
+</div>
+<script>
+$(function() {
+    $('select').selectize({
+    plugins: ['remove_button'],
+    maxItems: 3,
+    placeholder: "",
+    closeAfterSelect: true
+});
+
+    $('#listGamesButton').click(function(){
+      var selectedTags = $('select').val();
+      if(selectedTags.length > 0){
+        var queryString = "?tags=";
+        for(var i = 0; i < selectedTags.length; i++){
+          if(i !== 0){
+            queryString += "+";
+          }
+          queryString += selectedTags[i];
+        }
+        window.location = queryString;
+      }else{
+        window.location = "?";
+      }
+    });
+});
+</script>
+
+<div class="block-grid-xs-2 block-grid-sm-3 block-grid-md-4" style="margin:0;padding:0;">
+{% for game in games %}
+    <div class="thumbnail">
+      <img src="
+      {% if game.logo %}
+      {{game.logo.url}}
+      {% else %}
+      {% static 'placeholder.png' %}
+      {% endif %}" alt="thumbnail" width="300px" height="300px">
+      <div class="caption">
+        <h3>{{game.title}}</h3>
+        <h4>{{game.developer}}</h4>
+        <ul class="tags">
+        {% for tag in game.tags.all %}
+        <li><a class="tag" href="?tags={{tag.name}}">{{ tag.name }}</a></li>
+        {% endfor %}
+        </ul>
+        <h5>{{game.price}}€</h5>
+        <p><a href="{% url 'detail' game_id=game.id %}" class="btn btn-primary center-block" role="button">Play</a></p>
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
